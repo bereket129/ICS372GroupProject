@@ -18,6 +18,7 @@
  * The authors do not make any claims regarding the correctness of the code in this module
  * and are not responsible for any loss or damage resulting from its use.  
  */
+import javax.swing.text.html.HTMLDocument;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
@@ -51,6 +53,7 @@ public class UserInterface {
     private static final int LIST_ALL_PRODUCTS = 11;
     private static final int SAVE = 12;
     private static final int HELP = 13;
+    private static GroceryStore groceryStore;
 
     /**
      * Made private for singleton pattern. Conditionally asks for
@@ -137,6 +140,26 @@ public class UserInterface {
     }
 
     /**
+     * Converts the string to a double
+     *
+     * @param prompt
+     *            the string for prompting
+     * @return the double corresponding to the string
+     *
+     */
+    public double getDouble(String prompt) {
+        do {
+            try {
+                String item = getToken(prompt);
+                Double number = Double.valueOf(item);
+                return number.intValue();
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please input a number ");
+            }
+        } while (true);
+    }
+
+    /**
      * Prompts for a date and gets a date object
      * 
      * @param prompt
@@ -205,7 +228,18 @@ public class UserInterface {
      *
      */
     public void addMember() {
-        System.out.println("addMember: to be implemented");
+        String name = getToken("Enter name of the member");
+        String address= getToken("Enter the address of the member");
+        int phoneNumber = getNumber("Enter the phone number of the member");
+        double feePaid = getDouble("Enter the fee paid");
+        boolean result;
+        result=groceryStore.enrollMember(name,address,phoneNumber,feePaid);
+        if(result){
+            System.out.println("Member added successfully");
+        }else{
+            System.out.println("Failed to add member");
+        }
+
     }
 
     /**
@@ -215,7 +249,14 @@ public class UserInterface {
      *
      */
     public void removeAMember() {
-        System.out.println("removeAMember:to be implemented");
+        String memberId = getToken("Enter the Id of the member");
+        boolean result = groceryStore.removeMember(memberId);
+        if(result){
+            System.out.println("Member removed successfully");
+        }else{
+            System.out.println("Failed to remove member");
+        }
+
     }
 
 
@@ -226,7 +267,13 @@ public class UserInterface {
      * 
      */
     public void retrieveMemberInfo() {
-        System.out.println("retrieveMemberInfo: To be implemented");
+        String memberId = getToken("Enter the id of the memeber");
+        Member result = groceryStore.retrieveMember(memberId);
+        if(result==null){
+            System.out.println("No such member exist");
+        }else{
+            System.out.println(result);
+        }
 
     }
 
@@ -238,7 +285,16 @@ public class UserInterface {
      */
 
     public void addProduct() {
-        System.out.println("addProduct: To be implemented");
+        String name = getToken("Enter the product name");
+        int quantity = getNumber("Enter the stock quantity");
+        double price = getDouble("Enter price of the product");
+        int minimumLevel = getNumber("Enter the minimum reorder level");
+        boolean result = groceryStore.addProduct(name,quantity,price,minimumLevel);
+        if(result){
+            System.out.println("Successfully added the product");
+        }else {
+            System.out.println("Failed to add the product");
+        }
 
     }
 
@@ -250,8 +306,11 @@ public class UserInterface {
      * 
      */
     public void checkOut() {
-        System.out.println("checkOut: to be implemented");
-
+            String memberId = getToken("Enter the member id");
+            Transaction result = groceryStore.checkout(memberId);
+            if(result != null){
+                //TODO
+            }
     }
 
     /**
@@ -261,7 +320,13 @@ public class UserInterface {
      * 
      */
     public void retrieveProductInfo() {
-        System.out.println("retrieveProductInfo: to be implemented");
+        String productId = getToken("Enter the id of the product");
+        Product result = groceryStore.retrieveProduct(productId);
+        if(result==null){
+            System.out.println("No such product exist");
+        }else{
+            System.out.println(result);
+        }
 
     }
 
@@ -272,7 +337,15 @@ public class UserInterface {
      * 
      */
     public void processShipment() {
-        System.out.println("processShipment: to be implemented");
+        String productId = getToken("Enter the product Id");
+        int quantity = getNumber("Enter the quantity");
+        boolean result = groceryStore.processShipment(productId,quantity);
+        if(result){
+            System.out.println("Updated stock successfully");
+        }else{
+            System.out.println("Failed to update the stock");
+        }
+
     }
 
     /**
@@ -282,7 +355,14 @@ public class UserInterface {
      * 
      */
     public void changePrice() {
-        System.out.println("changePrice: to be implemented");
+        String productId = getToken("Enter the product id");
+        double price = getDouble("Enter the new price");
+        boolean result = groceryStore.changePrice(productId,price);
+        if(result){
+            System.out.println("Updated price successfully");
+        }else{
+            System.out.println("Failed to update the price");
+        }
     }
 
     /**
@@ -293,7 +373,22 @@ public class UserInterface {
      * 
      */
     public void getTransaction() {
-        System.out.println("getTransaction: to be implemented");
+        String memberID = getToken("Enter the id of the member");
+        GregorianCalendar startDate =(GregorianCalendar) getDate("Enter the start date");
+        GregorianCalendar endDate = (GregorianCalendar) getDate("Enter the end date");
+        Iterator result = groceryStore.printTransactions(memberID,startDate,endDate);
+        if(result==null){
+            System.out.println("No transaction found");
+        }else{
+
+            while (result.hasNext()) {
+                Transaction transaction = (Transaction) result.next();
+                System.out.println(transaction);
+            }
+            System.out.println("No more transaction to print");
+        }
+
+
     }
 
     /**
@@ -303,7 +398,16 @@ public class UserInterface {
      * 
      */
     public void listAllMembers() {
-        System.out.println("listAllMembers: to be implemented");
+        Iterator result = groceryStore.listMembers();
+        if(result==null){
+            System.out.println("No members to display");
+        }else{
+            while (result.hasNext()) {
+                Member member = (Member) result.next();
+                System.out.println(member);
+            }
+            System.out.println("No more members to print");
+        }
     }
 
     /**
@@ -313,7 +417,17 @@ public class UserInterface {
      * 
      */
     public void listAllProducts() {
-        System.out.println("listAllProducts: to be implemented");
+        Iterator result = groceryStore.listProducts();
+        if(result==null){
+            System.out.println("No products to display");
+        }else{
+            while (result.hasNext()) {
+                Product product = (Product) result.next();
+                System.out.println(product);
+            }
+            System.out.println("No more members to print");
+        }
+
     }
 
     /**
@@ -322,7 +436,11 @@ public class UserInterface {
      * 
      */
     private void save() {
-        System.out.println("save: to be implemented");
+        if (groceryStore.save()) {
+            System.out.println(" The Grocery Store has been successfully saved in the file GroceryStoreData \n");
+        } else {
+            System.out.println(" There has been an error in saving \n");
+        }
     }
 
     /**
@@ -331,7 +449,19 @@ public class UserInterface {
      * 
      */
     private void retrieve() {
-        System.out.println("retrieve: To be implemented");
+        try {
+            if (groceryStore == null) {
+                groceryStore = groceryStore.retrieve();
+                if (groceryStore != null) {
+                    System.out.println(" The Grocery Store has been successfully retrieved from the file GroceryStoreData \n");
+                } else {
+                    System.out.println("File doesnt exist; creating new GroceryStore object");
+                    groceryStore = GroceryStore.getInstance();
+                }
+            }
+        } catch (Exception cnfe) {
+            cnfe.printStackTrace();
+        }
     }
 
     /**
