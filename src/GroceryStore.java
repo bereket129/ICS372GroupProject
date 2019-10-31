@@ -179,9 +179,9 @@ public class GroceryStore implements Serializable{
 		}
 	}
 	/**
-	 * Retrieves a deserialized version of the library from disk
+	 * Retrieves a deserialized version of the grocerystore from disk
 	 *
-	 * @return a Library object
+	 * @return a groceryStore object
 	 */
 	public GroceryStore retrieve() {
 		try {
