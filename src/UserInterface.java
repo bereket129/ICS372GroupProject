@@ -18,7 +18,6 @@
  * The authors do not make any claims regarding the correctness of the code in this module
  * and are not responsible for any loss or damage resulting from its use.  
  */
-import javax.swing.text.html.HTMLDocument;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -113,10 +112,7 @@ public class UserInterface {
      */
     private boolean yesOrNo(String prompt) {
         String more = getToken(prompt + " (Y|y)[es] or anything else for no");
-        if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
-            return false;
-        }
-        return true;
+        return more.charAt(0) == 'y' || more.charAt(0) == 'Y';
     }
 
     /**
@@ -515,6 +511,9 @@ public class UserInterface {
                 help();
                 break;
             }
+        }
+        if (yesOrNo("Do you want to save your data before existing?")) {
+            groceryStore.save();
         }
     }
 
