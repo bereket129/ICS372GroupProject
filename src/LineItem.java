@@ -1,35 +1,64 @@
-
 public class LineItem {
 	private Product product;
 	private int quantity;
 	private double totalPrice;
-	
+
 	public LineItem(Product product, int quantity) {
-		//TODO
+		this.product = product;
+		this.quantity = quantity;
+		this.totalPrice = calculateTotalPrice(product, quantity);
 	}
-	
-	public double calculateTotalPrice(Product product, int quantity) {
-		//TODO
-		//Put this in the constructor
+
+	private double calculateTotalPrice(Product product, int quantity) {
+		double totalPrice = product.getPrice() * quantity;
+
+		assert(adjustProductQuantity(product, quantity));
+
+		return totalPrice;
 	}
-	
+
+	private boolean adjustProductQuantity(Product product, int quantity) {
+		int newQuantity = product.getQuantity() - quantity;
+
+		return product.setQuantity(newQuantity);
+	}
+
 	public Product getProduct() {
-		//TODO
+		return product;
 	}
-	
+
 	public int getQuantity() {
-		//TODO
+		return quantity;
 	}
-	
+
 	public boolean setProduct(Product product) {
-		//TODO
+		if (product != null) {
+			this.product = product;
+			return true;
+		}
+
+		return false;
 	}
-	
+
 	public boolean setQuantity(int quantity) {
-		//TODO
+		if (quantity >= 0) {
+			this.quantity = quantity;
+			return true;
+		}
+
+		return false;
 	}
-	
+
 	public double getTotalPrice() {
-		//TODO
+		return totalPrice;
 	}
- }
+
+	@Override
+	public String toString() {
+		String name = product.getName();
+		int quantity = product.getQuantity();
+		double price = product.getPrice();
+
+		return String.format("%s %d $%1.2f $%1.2f", name, quantity, price, totalPrice);
+	}
+}

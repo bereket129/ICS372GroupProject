@@ -302,11 +302,39 @@ public class UserInterface {
      * 
      */
     public void checkOut() {
-            String memberId = getToken("Enter the member id");
-            Transaction result = groceryStore.checkout(memberId);
-            if(result != null){
-                //TODO
+        Product product;
+
+        boolean notFinished = true;
+        int quantity=0;
+        String productId;
+        String memberId = getToken("Enter the member's ID:");
+        Transaction transaction = groceryStore.checkout(memberId);
+
+
+        // Since member IDs are unique, it will only find one
+        if (transaction==null) {
+            System.out.println("No Such member.");
+            return;
+        }
+        // Process checkout
+        do {
+            // Find product
+            productId = getToken("Enter the product id:");
+            product = groceryStore.retrieveProduct(productId);
+
+            if (product == null) {
+                System.out.println("Product not found.");
+            } else {
+                quantity = getNumber("Enter number of items:");
+
             }
+            groceryStore.checkout(product,quantity,transaction);
+
+            notFinished = yesOrNo("More items?");
+        } while (notFinished);
+
+        groceryStore.checkout(memberId);
+
     }
 
     /**

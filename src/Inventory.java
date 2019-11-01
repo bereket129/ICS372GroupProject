@@ -1,30 +1,92 @@
-import java.util.LinkedList;
 
-public class Inventory {
-	private LinkedList<Product> productList = new LinkedList<Product>();
+import java.util.Iterator;
+import java.util.LinkedList;
+/**
+ *
+ *
+ * The following code is based on code from Brahma Dathan 
+ * lecture notes
+ *
+ * The collection class for Product Objects
+ *
+ *
+ */
+public class Inventory{
+	private LinkedList productList = new LinkedList();
 	private static Inventory inventory;
-	
-	public static Inventory getInstance() {
-		//TODO
-	}
-	
+
+	/*
+	 * Private constructor for singleton pattern
+	 *
+	 */
 	private Inventory() {
-		//TODO
 	}
-	
-	private boolean addProduct(Product product) {
-		//TODO
+
+	/**
+	 * Supports the singleton pattern
+	 *
+	 * @return the singleton object
+	 */
+	public static Inventory getInstance() {
+		if(inventory == null) {
+			return (inventory = new Inventory());
+		}else{
+			return inventory;
+		}
 	}
-	
-	private boolean removeProduct(String productId) {
-		//TODO
+
+	/**
+	 * Checks whether a product with a given product id exists.
+	 *
+	 * @param productId
+	 *            the id of the product
+	 * @return true iff the product exists
+	 *
+	 */
+	public Product findProduct(String productId){
+		for (Iterator iterator = productList.iterator(); iterator.hasNext();) {
+			Product product = (Product) iterator.next();
+			if (product.getProductId().equals(productId)) {
+				return product;
+			}
+		}
+		return null;
 	}
-	
-	private Product findProduct(String productId) {
-		//TODO
+
+	/**
+	 * Removes a product from the inventory
+	 *
+	 * @param productId
+	 *            product id
+	 * @return true iff product could be removed
+	 */
+	public boolean removeProduct(String productId) {
+		Product product = findProduct(productId);
+		if (product == null) {
+			return false;
+		} else {
+			return productList.remove(product);
+		}
 	}
-	
-	private Iterator getProducts() {
-		//TODO
+
+	/**
+	 * Add a product into the collection
+	 *
+	 * @param product
+	 *            the product to be added
+	 * @return true iff the product could be added. Currently always true
+	 */
+	public boolean addProduct(Product product) {
+		productList.add(product);
+		return true;
+	}
+
+	/**
+	 * Returns an iterator to all product
+	 *
+	 * @return iterator to the collection
+	 */
+	public Iterator getProducts() {
+		return productList.iterator();
 	}
 }

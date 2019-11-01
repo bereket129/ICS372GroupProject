@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class GroceryStore implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -79,7 +78,7 @@ public class GroceryStore implements Serializable{
 	 * @return a boolean to indicate if the the product was added successfully.
 	 */
 	public boolean addProduct(String name, int quantity, double price, int minimumLevel) {
-		Product product = new Product(name, quantity, price,minimumLevel);
+		Product product = new Product(name, quantity,minimumLevel,price);
 		return inventory.addProduct(product);
 	}
 	/**
@@ -90,7 +89,19 @@ public class GroceryStore implements Serializable{
 	 * @return a reference of the Transaction object created.
 	 */
 	public Transaction checkout(String memberId) {
-		//TODO
+		Member member = memberList.findMember(memberId);
+		if(member==null){
+			return null;
+		}else {
+			Transaction transaction = new Transaction(member);
+			transactionList.addTransaction(transaction);
+			return transaction;
+		}
+	}
+
+	public void checkout(Product product, int quantity, Transaction transaction){
+		LineItem lineItem = new LineItem(product,quantity);
+		transaction.addLineItem(lineItem);
 	}
 	/**
 	 * Organizes the operations for retrieving a product's information.
@@ -131,15 +142,15 @@ public class GroceryStore implements Serializable{
 	 */
 	
 	public Iterator printTransactions(String memberId, GregorianCalendar startDate, GregorianCalendar endDate) {
-		Iterator result=  transactionList.getTransactions(startDate,endDate);
-		LinkedList<Transaction> memberTransactions = new LinkedList<Transaction>();
-		while(result.hasNext()){
-			Transaction transaction = (Transaction) result.next();
-			if(transaction.getMember().getMemberId().equals(memberId)){
-				memberTransactions.add(transaction);
-			}
-		}
-		return memberTransactions.iterator();
+		return transactionList.getTransactions(memberId,startDate,endDate);
+//		LinkedList<Transaction> memberTransactions = new LinkedList<Transaction>();
+//		while(result.hasNext()){
+//			Transaction transaction = (Transaction) result.next();
+//			if(transaction.getMember().getMemberId().equals(memberId)){
+//				memberTransactions.add(transaction);
+//			}
+//		}
+//		return memberTransactions.iterator();
 	}
 	/**
 	 * Organizes the operations for listing all members

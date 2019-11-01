@@ -6,20 +6,32 @@ public class Transaction {
 	private double total;
 	private Member member;
 	private LinkedList<LineItem> LineItemList = new LinkedList<LineItem>();
-	
+
 	public Transaction(Member member) {
-		//TODO
+		this.member = member;
+		this.saleDate = new GregorianCalendar();
 	}
-	
+
 	public boolean addLineItem(LineItem lineItem) {
-		//TODO
+		return LineItemList.add(lineItem);
 	}
-	
+
 	public double calculateTotal() {
-		//TODO
+		double runningTotal = 0.0;
+
+		for (LineItem lineItem: LineItemList) {
+			runningTotal += lineItem.getTotalPrice();
+		}
+
+		return runningTotal;
 	}
-	
+
 	public Member getMember() {
-		//TODO
+		return member;
 	}
+
+	public GregorianCalendar getSaleDate() {
+		return saleDate;
+	}
+
 }
