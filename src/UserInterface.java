@@ -61,8 +61,11 @@ public class UserInterface {
     private UserInterface() {
         if (yesOrNo("Do you want to generate a test bed and invoke"
                 +" the functionality using asserts?")) {
+        }
+        if(yesOrNo("Do you want to load from a previously saved data?")){
             retrieve();
-        } else {
+        }else{
+            groceryStore = GroceryStore.getInstance();
         }
     }
 
@@ -324,16 +327,18 @@ public class UserInterface {
 
             if (product == null) {
                 System.out.println("Product not found.");
+                continue;
             } else {
                 quantity = getNumber("Enter number of items:");
 
             }
-            groceryStore.checkout(product,quantity,transaction);
+            if(groceryStore.checkout(product,quantity,transaction)==0){
+                System.out.println("Sorry, we do not have enough stock of the product\n");
+            }
 
             notFinished = yesOrNo("More items?");
         } while (notFinished);
-
-        groceryStore.checkout(memberId);
+        System.out.println(transaction);
 
     }
 
@@ -449,7 +454,7 @@ public class UserInterface {
                 Product product = (Product) result.next();
                 System.out.println(product);
             }
-            System.out.println("No more members to print");
+            System.out.println("No more products to print");
         }
 
     }
@@ -475,7 +480,7 @@ public class UserInterface {
     private void retrieve() {
         try {
             if (groceryStore == null) {
-                groceryStore = groceryStore.retrieve();
+                groceryStore = GroceryStore.retrieve();
                 if (groceryStore != null) {
                     System.out.println(" The Grocery Store has been successfully retrieved from the file GroceryStoreData \n");
                 } else {

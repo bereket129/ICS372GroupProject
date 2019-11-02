@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Product {
+public class Product implements Serializable {
 	private String productId;
 	private String name;
 	private int quantity;
@@ -7,6 +8,11 @@ public class Product {
 	private double price;
 	
 	public Product(String name, int quantity, int minimumLevel, double price) {
+		this.name = name;
+		this.quantity=quantity;
+		this.minimumLevel=minimumLevel;
+		this.price = price;
+		this.productId = "p"+MemberIdServer.instance().getId();
 		
 	}
 
@@ -68,7 +74,13 @@ public class Product {
 		}
 
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "id: "+productId+ " name : "
+				+name+" quantity in stock : "
+				+quantity+" price: "
+				+ price+" minimum stocking level : "
+				+minimumLevel;
+	}
 }

@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 /**
@@ -11,7 +12,7 @@ import java.util.LinkedList;
  *
  *
  */
-public class Inventory{
+public class Inventory implements Serializable {
 	private LinkedList productList = new LinkedList();
 	private static Inventory inventory;
 

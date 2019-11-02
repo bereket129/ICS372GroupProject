@@ -8,7 +8,10 @@ public class GroceryStore implements Serializable{
 	private MemberList memberList;
 	private Inventory inventory;
 	private TransactionList transactionList;
-	private UserInterface userInterface;
+	public static final int NOT_ENOUGH_IN_STOCK=0;
+
+
+
 
 	/**
 	 * Private for the singleton pattern creates the MemberList,Inventory
@@ -20,7 +23,7 @@ public class GroceryStore implements Serializable{
 		memberList = MemberList.getInstance();
 		inventory = Inventory.getInstance();
 		transactionList = TransactionList.getInstance();
-		userInterface = UserInterface.instance();
+
 	}
 	/**
 	 * Supports the singleton pattern
@@ -99,9 +102,17 @@ public class GroceryStore implements Serializable{
 		}
 	}
 
-	public void checkout(Product product, int quantity, Transaction transaction){
-		LineItem lineItem = new LineItem(product,quantity);
-		transaction.addLineItem(lineItem);
+	public int checkout(Product product, int quantity, Transaction transaction){
+		if(product.getQuantity()<quantity){
+			return NOT_ENOUGH_IN_STOCK;
+		}else{
+			product.setQuantity(product.getQuantity()-quantity);
+			LineItem lineItem = new LineItem(product,quantity);
+			transaction.addLineItem(lineItem);
+		}
+			return 1;
+
+
 	}
 	/**
 	 * Organizes the operations for retrieving a product's information.
@@ -123,7 +134,7 @@ public class GroceryStore implements Serializable{
 	 */
 	public boolean processShipment(String productId, int quantity) {
 		Product product = inventory.findProduct(productId);
-		return product.setQuantity(quantity);
+		return product.setQuantity(product.getQuantity()+quantity);
 	}
 	
 	public boolean changePrice(String productId, double price) {
@@ -142,15 +153,7 @@ public class GroceryStore implements Serializable{
 	 */
 	
 	public Iterator printTransactions(String memberId, GregorianCalendar startDate, GregorianCalendar endDate) {
-		return transactionList.getTransactions(memberId,startDate,endDate);
-//		LinkedList<Transaction> memberTransactions = new LinkedList<Transaction>();
-//		while(result.hasNext()){
-//			Transaction transaction = (Transaction) result.next();
-//			if(transaction.getMember().getMemberId().equals(memberId)){
-//				memberTransactions.add(transaction);
-//			}
-//		}
-//		return memberTransactions.iterator();
+		return transactionList.getTransactions(memberId, startDate, endDate);
 	}
 	/**
 	 * Organizes the operations for listing all members
@@ -194,7 +197,7 @@ public class GroceryStore implements Serializable{
 	 *
 	 * @return a groceryStore object
 	 */
-	public GroceryStore retrieve() {
+	public static GroceryStore retrieve() {
 		try {
 			FileInputStream file = new FileInputStream("GroceryStoreData");
 			ObjectInputStream input = new ObjectInputStream(file);

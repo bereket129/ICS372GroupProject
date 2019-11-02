@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -6,7 +7,7 @@ import java.util.LinkedList;
  * @author brentwindham
  * This implements the collection of members.
  */
-public class MemberList {
+public class MemberList implements Serializable {
 	private LinkedList<Member> members = new LinkedList<Member>();
 	private static MemberList memberList;
 

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
@@ -5,7 +6,7 @@ import java.util.GregorianCalendar;
  * @author brentwindham
  *This is the implementation of a member in the grocery store system.
  */
-public class Member {
+public class Member implements Serializable {
 
 	private String memberId;
 	private String name;
@@ -13,7 +14,6 @@ public class Member {
 	private double feePaid;
 	private String address;
 	private GregorianCalendar joinDate;
-	private int counter = 1;
 
 	/**
 	 * Constructor for member.
@@ -29,8 +29,7 @@ public class Member {
 		this.phoneNumber = phoneNumber;
 		this.feePaid = feePaid;
 		this.joinDate = new GregorianCalendar();
-		this.memberId = "m" + counter;
-		counter++;
+		this.memberId = "m" + MemberIdServer.instance().getId();
 	}
 
 	/**
@@ -141,7 +140,10 @@ public class Member {
 		return true;
 	}
 
-
-
-
+	@Override
+	public String toString() {
+		return "id: "+memberId+" name : "+name+ " address: "
+				+address+ " phonenumber: "
+				+phoneNumber+ " fee paid: "+feePaid;
+	}
 }
