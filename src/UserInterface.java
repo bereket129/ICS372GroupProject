@@ -61,6 +61,7 @@ public class UserInterface {
     private UserInterface() {
         if (yesOrNo("Do you want to generate a test bed and invoke"
                 +" the functionality using asserts?")) {
+            groceryStore = GroceryStore.getInstance().test();
         }
         if(yesOrNo("Do you want to load from a previously saved data?")){
             retrieve();
@@ -266,12 +267,15 @@ public class UserInterface {
      * 
      */
     public void retrieveMemberInfo() {
-        String memberId = getToken("Enter the id of the memeber");
-        Member result = groceryStore.retrieveMember(memberId);
-        if(result==null){
+        String memberId = getToken("Enter the name of the memeber");
+        Iterator result = groceryStore.retrieveMember(memberId);
+        if(!result.hasNext()){
             System.out.println("No such member exist");
         }else{
-            System.out.println(result);
+            while (result.hasNext()){
+                Member member =(Member) result.next();
+                System.out.println(member);
+            }
         }
 
     }
@@ -288,11 +292,17 @@ public class UserInterface {
         int quantity = getNumber("Enter the stock quantity");
         double price = getDouble("Enter price of the product");
         int minimumLevel = getNumber("Enter the minimum reorder level");
-        boolean result = groceryStore.addProduct(name,quantity,price,minimumLevel);
-        if(result){
-            System.out.println("Successfully added the product");
-        }else {
-            System.out.println("Failed to add the product");
+        Product product = groceryStore.retrieveProduct(name);
+        //checks for duplicate product names.
+        if(product==null) {
+            boolean result = groceryStore.addProduct(name, quantity, price, minimumLevel);
+            if (result) {
+                System.out.println("Successfully added the product");
+            } else {
+                System.out.println("Failed to add the product");
+            }
+        }else{
+            System.out.println("a product already exists with the name provided");
         }
 
     }
@@ -323,7 +333,7 @@ public class UserInterface {
         do {
             // Find product
             productId = getToken("Enter the product id:");
-            product = groceryStore.retrieveProduct(productId);
+            product = groceryStore.findProductById(productId);
 
             if (product == null) {
                 System.out.println("Product not found.");
@@ -332,13 +342,19 @@ public class UserInterface {
                 quantity = getNumber("Enter number of items:");
 
             }
-            if(groceryStore.checkout(product,quantity,transaction)==0){
+            if(groceryStore.checkout(product,quantity,transaction)==1){
                 System.out.println("Sorry, we do not have enough stock of the product\n");
             }
 
             notFinished = yesOrNo("More items?");
         } while (notFinished);
         System.out.println(transaction);
+
+        //checking if there are product tha needs to be reordered.
+        String reorderItems= groceryStore.checkForReorder();
+       if(reorderItems.length()!=0){
+           System.out.println(reorderItems);
+       }
 
     }
 
@@ -349,7 +365,7 @@ public class UserInterface {
      * 
      */
     public void retrieveProductInfo() {
-        String productId = getToken("Enter the id of the product");
+        String productId = getToken("Enter the name  of the product");
         Product result = groceryStore.retrieveProduct(productId);
         if(result==null){
             System.out.println("No such product exist");
@@ -368,9 +384,10 @@ public class UserInterface {
     public void processShipment() {
         String productId = getToken("Enter the product Id");
         int quantity = getNumber("Enter the quantity");
-        boolean result = groceryStore.processShipment(productId,quantity);
-        if(result){
-            System.out.println("Updated stock successfully");
+        Product result = groceryStore.processShipment(productId,quantity);
+        if(result!=null){
+            System.out.println("Successfully updated the stock");
+            System.out.println(result);
         }else{
             System.out.println("Failed to update the stock");
         }
@@ -386,9 +403,10 @@ public class UserInterface {
     public void changePrice() {
         String productId = getToken("Enter the product id");
         double price = getDouble("Enter the new price");
-        boolean result = groceryStore.changePrice(productId,price);
-        if(result){
+        Product result = groceryStore.changePrice(productId,price);
+        if(result!=null){
             System.out.println("Updated price successfully");
+            System.out.println(result);
         }else{
             System.out.println("Failed to update the price");
         }
@@ -406,7 +424,7 @@ public class UserInterface {
         GregorianCalendar startDate =(GregorianCalendar) getDate("Enter the start date");
         GregorianCalendar endDate = (GregorianCalendar) getDate("Enter the end date");
         Iterator result = groceryStore.printTransactions(memberID,startDate,endDate);
-        if(result==null){
+        if(!result.hasNext()){
             System.out.println("No transaction found");
         }else{
 

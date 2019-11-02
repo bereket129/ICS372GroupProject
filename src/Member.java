@@ -142,8 +142,11 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		return "id: "+memberId+" name : "+name+ " address: "
-				+address+ " phonenumber: "
-				+phoneNumber+ " fee paid: "+feePaid;
+		return "id: "+memberId
+				+" name: "+name
+				+ " address: " +address
+				+" phone number: "+phoneNumber
+				+" fee paid: "+feePaid
+				+" joined date: "+joinDate.getTime();
 	}
 }

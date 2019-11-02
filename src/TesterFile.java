@@ -57,44 +57,42 @@ public class TesterFile {
     private void assertBusinessRulesOneToEight(){
 
         assert(groceryStore.enrollMember("jack","123 ave",2038577777,33.22));
-        assert(groceryStore.removeMember(2));
-        //this should be false because there is no such member with id 100
-        assert(!groceryStore.removeMember(100));
+        assert(groceryStore.removeMember("m1"));
+        //this return be false because there is no such member with id 100
+        assert(!groceryStore.removeMember("m100"));
        //this test will ensure retrieveMember returns a list with at-least
         //one member for the given name.
         assert(groceryStore.retrieveMember(memberToTest.getName()).hasNext());
         //this should return false as two products with the same name should not exist.
-        assert(groceryStore.addProduct(productsToTest[0],43,44.34,3));
-        Member member = groceryStore.retrieveMember(3);
-        Product product = groceryStore.retrieveProduct(33);
+        assert(!groceryStore.addProduct(productsToTest[0],43,44.34,3));
+        Member member = groceryStore.retrieveMemberByID("m2");
+        Product product = groceryStore.retrieveProduct(productsToTest[1]);
         Transaction transaction = new Transaction(member);
-        //return type 0 is used for successful transaction and 1 for
-        // //unsuccessful transactions
-        assert(groceryStore.checkout(product,product.getQuantity(),transaction)==1);
+        System.out.println("Person who made  a transaction");
+        System.out.println(member);
+        //this should not fail
+        groceryStore.checkout(product,product.getQuantity(),transaction);
         //checkout should return 1, not enough stock, when attempt was made
         //to buy more than the available quantity.
-        assert(groceryStore.checkout(product,1,transaction)==0);
+        assert(groceryStore.checkout(product,1,transaction)==1);
         //retrieve product should not return null for an existing product
         assert(groceryStore.retrieveProduct(productsToTest[0])!=null);
         //retrieve product should return null for non existing product
         //parameter selected because the length of all product names is less than\
         //seven.
         assert(groceryStore.retrieveProduct("abcdefgttt")==null);
-        //item 102 does not exist, thus processShipment should return false.
-        assert(!groceryStore.processShipment(102,12));
-        //item 0 can not exist, due to the reason that the first few
-        //numbers are assigned to members. since Id are assigned
-        //in increasing order, 0 could never be a valid product id.
-        assert(!groceryStore.changePrice(0,21));
+        //item p102 does not exist, thus processShipment should return false.
+        assert(groceryStore.processShipment("p102",12)==null);
+        //changing a price for non existing product should return null
+        assert(groceryStore.changePrice("p1",21)==null);
 
-        //printing transaction for today for member id of 3
+        //printing transaction for today for member id of m2
         System.out.println("Printing transactions. ");
-        Iterator iterator = groceryStore.printTransactions(3,
+        Iterator iterator = groceryStore.printTransactions("m2",
                 (new GregorianCalendar(TimeZone.getTimeZone("canada/central"))),
                 (new GregorianCalendar(TimeZone.getTimeZone("canada/central"))));
         while(iterator.hasNext()){
             Transaction transactionToPrint = (Transaction) iterator.next();
-            System.out.println(transactionToPrint);
         }
 
         System.out.println("Listing all members ");

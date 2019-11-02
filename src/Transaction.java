@@ -51,21 +51,6 @@ public class Transaction implements Serializable {
 
 		stringBuilder.append(String.format("%-30s%s","Total",calculateTotal()+"\n"));
 		stringBuilder.append(String.format("%-30s%s","Date",saleDate.getTime()+"\n"));
-
-		System.out.println(saleDate.getTime());
-		ArrayList<Product> itemsToReorder = new ArrayList<>();
-		for (LineItem lineItem: lineItemList){
-			if(lineItem.getProduct().getQuantity()<=lineItem.getProduct().getMinimumLevel()){
-				itemsToReorder.add(lineItem.getProduct());
-			}
-		}
-		if(itemsToReorder.size()>0){
-			stringBuilder.append("**************** Reordering items listed below **********\n");
-			for(Product product: itemsToReorder){
-				stringBuilder.append(product.getName()+"\n");
-			}
-		}
-
 		return stringBuilder.toString();
 	}
 }

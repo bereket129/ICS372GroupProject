@@ -8,7 +8,7 @@ public class GroceryStore implements Serializable{
 	private MemberList memberList;
 	private Inventory inventory;
 	private TransactionList transactionList;
-	public static final int NOT_ENOUGH_IN_STOCK=0;
+	public static final int NOT_ENOUGH_IN_STOCK=1;
 
 
 
@@ -60,15 +60,39 @@ public class GroceryStore implements Serializable{
 	public boolean removeMember(String memberId) {
 		return memberList.removeMember(memberId);
 	}
+
 	/**
 	 * Organizes the operations for retrieving a member from a member list.
 	 *
-	 * @param memberId id of the member
+	 * @param memberName name of the member
 
-	 * @return a reference of the Member object found.
+	 * @return a reference of the Iterator object forumulated.
 	 */
-	public Member retrieveMember(String memberId) {
-		   return memberList.findMember(memberId);
+	public Iterator retrieveMember(String memberName) {
+		return memberList.findMember(memberName);
+
+	}
+
+	/**
+	 * Organizes the operations for retrieving a member from a member list.
+	 *
+	 * @param memberName name of the member
+
+	 * @return a reference of the Iterator object forumulated.
+	 */
+//	public Iterator retrieveMemberById(String memberName) {
+//		return memberList.findMember(memberName);
+//
+//	}
+	/**
+//	 * Organizes the operations for retrieving a member from a member list.
+//	 *
+//	 * @param memberId id of the member
+//
+//	 * @return a reference of the Member object found.
+//	 */
+	public Member retrieveMemberByID(String memberId) {
+		   return memberList.findMemberByID(memberId);
 
 	}
 	/**
@@ -81,8 +105,14 @@ public class GroceryStore implements Serializable{
 	 * @return a boolean to indicate if the the product was added successfully.
 	 */
 	public boolean addProduct(String name, int quantity, double price, int minimumLevel) {
-		Product product = new Product(name, quantity,minimumLevel,price);
-		return inventory.addProduct(product);
+		if(retrieveProduct(name)==null){
+			Product product = new Product(name, quantity,minimumLevel,price);
+			return inventory.addProduct(product);
+		}else{
+			return false;
+		}
+
+
 	}
 	/**
 	 * Organizes the operations for checking a member's cart out.
@@ -92,7 +122,7 @@ public class GroceryStore implements Serializable{
 	 * @return a reference of the Transaction object created.
 	 */
 	public Transaction checkout(String memberId) {
-		Member member = memberList.findMember(memberId);
+		Member member = memberList.findMemberByID(memberId);
 		if(member==null){
 			return null;
 		}else {
@@ -110,10 +140,21 @@ public class GroceryStore implements Serializable{
 			LineItem lineItem = new LineItem(product,quantity);
 			transaction.addLineItem(lineItem);
 		}
-			return 1;
+			return 0;
 
 
 	}
+	/**
+	 * Organizes the operations for retrieving a product's information.
+	 *
+	 * @param productName name of the product
+
+	 * @return a reference of the Product object returned by the inventory.
+	 */
+	public Product retrieveProduct(String productName) {
+		return inventory.findProduct(productName);
+	}
+
 	/**
 	 * Organizes the operations for retrieving a product's information.
 	 *
@@ -121,8 +162,8 @@ public class GroceryStore implements Serializable{
 
 	 * @return a reference of the Product object returned by the inventory.
 	 */
-	public Product retrieveProduct(String productId) {
-		return inventory.findProduct(productId);
+	public Product findProductById(String productId) {
+		return inventory.findProductById(productId);
 	}
 
 	/**
@@ -132,15 +173,24 @@ public class GroceryStore implements Serializable{
 	 * @param quantity quantity of the item shipped.
 	 * @return a boolan to indicate if processing the shipment was successful.
 	 */
-	public boolean processShipment(String productId, int quantity) {
-		Product product = inventory.findProduct(productId);
-		return product.setQuantity(product.getQuantity()+quantity);
+	public Product processShipment(String productId, int quantity) {
+		Product product = inventory.findProductById(productId);
+		if(product != null){
+			product.setQuantity(product.getQuantity()+quantity);
+		}
+
+		return product;
+
 	}
 	
-	public boolean changePrice(String productId, double price) {
-		Product product = inventory.findProduct(productId);
-		return product.setPrice(price);
-		//TODO
+	public Product changePrice(String productId, double price) {
+		Product product = inventory.findProductById(productId);
+		if(product!=null){
+			if(product.setPrice(price)){
+				return product;
+			}
+		}
+		return null;
 	}
 	/**
 	 * Organizes the operations for printing a transaction on the given
@@ -191,6 +241,29 @@ public class GroceryStore implements Serializable{
 			ioe.printStackTrace();
 			return false;
 		}
+	}
+	/**
+	 *
+	 */
+	public String checkForReorder(){
+		String reorderItems="Reordering items...\n";
+		Iterator iterator = inventory.getProducts();
+		while(iterator.hasNext()){
+			Product product = (Product) iterator.next();
+			if(product.getQuantity()<=product.getMinimumLevel()){
+				reorderItems+=product.getName()+"\n";
+			}
+		}
+		return reorderItems;
+	}
+
+	/**
+	 *
+	 */
+	public GroceryStore test(){
+		TesterFile testerFile = new TesterFile();
+		testerFile.startTesting();
+		return getInstance();
 	}
 	/**
 	 * Retrieves a deserialized version of the grocerystore from disk
