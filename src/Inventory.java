@@ -2,7 +2,6 @@
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 /**
  *
  *
@@ -40,33 +39,15 @@ public class Inventory implements Serializable {
 	/**
 	 * Checks whether a product with a given product id exists.
 	 *
-	 * @param productName
-	 *            the name of the product
-	 * @return true iff the product exists
-	 *
-	 */
-	public Product findProduct(String productName){
-		for (Iterator iterator = productList.iterator(); iterator.hasNext();) {
-			Product product = (Product) iterator.next();
-			if (product.getName().equals(productName)) {
-				return product;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Checks whether a product with a given product id exists.
-	 *
 	 * @param productId
 	 *            the id of the product
 	 * @return true iff the product exists
 	 *
 	 */
-	public Product findProduct(int productId){
+	public Product findProduct(String productId){
 		for (Iterator iterator = productList.iterator(); iterator.hasNext();) {
 			Product product = (Product) iterator.next();
-			if (product.getProductId()==productId) {
+			if (product.getProductId().equals(productId)) {
 				return product;
 			}
 		}

@@ -22,11 +22,11 @@ public class TransactionList implements Serializable {
 		return transactions.add(transaction);
 	}
 
-	public Iterator getTransactions(int memberId, Calendar startDate, Calendar endDate) {
+	public Iterator getTransactions(String memberId, Calendar startDate, Calendar endDate) {
 		LinkedList<Transaction> transactionRange = new LinkedList<>();
 
 		for (Transaction transaction: transactions) {
-			if (transaction.getMember().getMemberId()!=(memberId)) {
+			if (!transaction.getMember().getMemberId().equals(memberId)) {
 				break;
 			}
 

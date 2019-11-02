@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class Product implements Serializable {
-	private int productId;
+	private String productId;
 	private String name;
 	private int quantity;
 	private int minimumLevel;
@@ -12,15 +12,15 @@ public class Product implements Serializable {
 		this.quantity=quantity;
 		this.minimumLevel=minimumLevel;
 		this.price = price;
-		this.productId = MemberIdServer.instance().getId();
+		this.productId = "p"+MemberIdServer.instance().getId();
 		
 	}
 
-	public int getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public boolean setProductId(int productId) {
+	public boolean setProductId(String productId) {
 		this.productId = productId;
 		return true;
 	}
@@ -77,7 +77,7 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "id: "+productId+ " Product Name: "+name+" quantity in stock : "
+		return "id: "+productId+ " quantity in stock : "
 				+quantity+" price: "
 				+ price;
 	}

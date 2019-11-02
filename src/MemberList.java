@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -51,7 +50,7 @@ public class MemberList implements Serializable {
 	 * @param memberId The id of the member being removed
 	 * @return Returns true if removed
 	 */
-	public boolean removeMember(int memberId) {
+	public boolean removeMember(String memberId) {
 		//TODO
 		if (members.remove(findMember(memberId))) {
 			return true;
@@ -62,30 +61,13 @@ public class MemberList implements Serializable {
 
 	/**
 	 * This finds a member in the list
-	 * @param memberName The name of the member that is being looked for.
-	 * @return Returns the member being looked for.
-	 */
-	public Iterator findMember(String memberName) {
-		//TODO
-		ArrayList<Member> arrayOfMembers = new ArrayList<>();
-		for (Member member : members) {
-			if (member.getName().equals(memberName)) {
-				arrayOfMembers.add(member);
-			}
-		}
-		return arrayOfMembers.iterator();
-	}
-
-
-
-	/**
-	 * This finds a member in the list
 	 * @param memberId The id of the member that is being looked for.
 	 * @return Returns the member being looked for.
 	 */
-	public Member findMember(int memberId) {
+	public Member findMember(String memberId) {
+		//TODO
 		for (Member member : members) {
-			if (member.getMemberId()==memberId) {
+			if (member.getMemberId().equals(memberId)) {
 				return member;
 			}
 		}

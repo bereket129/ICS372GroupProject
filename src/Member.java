@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  */
 public class Member implements Serializable {
 
-	private int memberId;
+	private String memberId;
 	private String name;
 	private int phoneNumber;
 	private double feePaid;
@@ -29,14 +29,14 @@ public class Member implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.feePaid = feePaid;
 		this.joinDate = new GregorianCalendar();
-		this.memberId = MemberIdServer.instance().getId();
+		this.memberId = "m" + MemberIdServer.instance().getId();
 	}
 
 	/**
 	 * Getter for MemberId
 	 * @return memberId
 	 */
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
 
@@ -45,7 +45,7 @@ public class Member implements Serializable {
 	 * @param memberId The memberId of the member.
 	 * @return Returns true if completed.
 	 */
-	public boolean setMemberId(int memberId) {
+	public boolean setMemberId(String memberId) {
 		this.memberId = memberId;
 		return true;
 	}
@@ -142,7 +142,8 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		return "id: "+memberId+ " address: "
-				+address+ " fee paid: "+feePaid;
+		return "id: "+memberId+" name : "+name+ " address: "
+				+address+ " phonenumber: "
+				+phoneNumber+ " fee paid: "+feePaid;
 	}
 }
