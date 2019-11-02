@@ -40,13 +40,18 @@ public class Transaction implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder(String.format("%-30s%-30s%s", "Product Name", "Quantity", "total\n"));
+		StringBuilder stringBuilder = new StringBuilder(String.format("%-30s%-30s%-30s%s", "Product Name", "Quantity", "Unit Price","total\n"));
 		for(LineItem lineItem : lineItemList){
-			stringBuilder.append(String.format("%-30s%-30s%s",lineItem.getProduct().getName(),lineItem.getQuantity(),lineItem.getTotalPrice()+"\n"));
+			stringBuilder.append(String.format("%-30s%-30s%-30s%s",
+					lineItem.getProduct().getName(),
+					lineItem.getQuantity(),
+					lineItem.getProduct().getPrice(),
+					lineItem.getTotalPrice()+"\n"));
 		}
 
 		stringBuilder.append(String.format("%-30s%s","Total",calculateTotal()+"\n"));
 		stringBuilder.append(String.format("%-30s%s","Date",saleDate.getTime()+"\n"));
+
 		System.out.println(saleDate.getTime());
 		ArrayList<Product> itemsToReorder = new ArrayList<>();
 		for (LineItem lineItem: lineItemList){

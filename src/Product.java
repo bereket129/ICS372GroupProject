@@ -77,10 +77,8 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "id: "+productId+ " name : "
-				+name+" quantity in stock : "
+		return "id: "+productId+ " quantity in stock : "
 				+quantity+" price: "
-				+ price+" minimum stocking level : "
-				+minimumLevel;
+				+ price;
 	}
 }
