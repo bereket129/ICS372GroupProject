@@ -14,16 +14,14 @@ public class LineItem implements Serializable {
 	private double calculateTotalPrice(Product product, int quantity) {
 		double totalPrice = product.getPrice() * quantity;
 
-		assert(adjustProductQuantity(product, quantity));
-
 		return totalPrice;
 	}
 
-	private boolean adjustProductQuantity(Product product, int quantity) {
-		int newQuantity = product.getQuantity() - quantity;
-
-		return product.setQuantity(newQuantity);
-	}
+//	private boolean adjustProductQuantity(Product product, int quantity) {
+//		int newQuantity = product.getQuantity() - quantity;
+//
+//		return product.setQuantity(newQuantity);
+//	}
 
 	public Product getProduct() {
 		return product;

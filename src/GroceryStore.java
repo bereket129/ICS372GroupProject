@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 
-public class GroceryStore implements Serializable{
+public class GroceryStore implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static GroceryStore groceryStore;
 	private MemberList memberList;
@@ -57,7 +57,7 @@ public class GroceryStore implements Serializable{
 
 	 * @return boolean to indicate if the member was removed successfully.
 	 */
-	public boolean removeMember(String memberId) {
+	public boolean removeMember(int memberId) {
 		return memberList.removeMember(memberId);
 	}
 	/**
@@ -67,8 +67,20 @@ public class GroceryStore implements Serializable{
 
 	 * @return a reference of the Member object found.
 	 */
-	public Member retrieveMember(String memberId) {
+	public Member retrieveMember(int memberId) {
 		   return memberList.findMember(memberId);
+
+	}
+
+	/**
+	 * Organizes the operations for retrieving a member from a member list.
+	 *
+	 * @param memberName name of the member
+
+	 * @return a reference of the Member object found.
+	 */
+	public Iterator retrieveMember(String memberName) {
+		return memberList.findMember(memberName);
 
 	}
 	/**
@@ -91,7 +103,7 @@ public class GroceryStore implements Serializable{
 
 	 * @return a reference of the Transaction object created.
 	 */
-	public Transaction checkout(String memberId) {
+	public Transaction checkout(int memberId) {
 		Member member = memberList.findMember(memberId);
 		if(member==null){
 			return null;
@@ -121,8 +133,19 @@ public class GroceryStore implements Serializable{
 
 	 * @return a reference of the Product object returned by the inventory.
 	 */
-	public Product retrieveProduct(String productId) {
+	public Product retrieveProduct(int productId) {
 		return inventory.findProduct(productId);
+	}
+
+	/**
+	 * Organizes the operations for retrieving a product's information.
+	 *
+	 * @param productName name of the product
+
+	 * @return a reference of the Product object returned by the inventory.
+	 */
+	public Product retrieveProduct(String productName) {
+		return inventory.findProduct(productName);
 	}
 
 	/**
@@ -132,15 +155,21 @@ public class GroceryStore implements Serializable{
 	 * @param quantity quantity of the item shipped.
 	 * @return a boolan to indicate if processing the shipment was successful.
 	 */
-	public boolean processShipment(String productId, int quantity) {
+	public boolean processShipment(int productId, int quantity) {
 		Product product = inventory.findProduct(productId);
-		return product.setQuantity(product.getQuantity()+quantity);
+		if(product!=null) {
+			return product.setQuantity(product.getQuantity() + quantity);
+		}
+		return false;
 	}
 	
-	public boolean changePrice(String productId, double price) {
+	public boolean changePrice(int productId, double price) {
 		Product product = inventory.findProduct(productId);
-		return product.setPrice(price);
-		//TODO
+		if(product!=null) {
+			return product.setPrice(price);
+		}else{
+			return false;
+		}
 	}
 	/**
 	 * Organizes the operations for printing a transaction on the given
@@ -152,7 +181,7 @@ public class GroceryStore implements Serializable{
 	 * @return a list of transactions that were made between the date range.
 	 */
 	
-	public Iterator printTransactions(String memberId, GregorianCalendar startDate, GregorianCalendar endDate) {
+	public Iterator printTransactions(int memberId, GregorianCalendar startDate, GregorianCalendar endDate) {
 		return transactionList.getTransactions(memberId, startDate, endDate);
 	}
 	/**
@@ -191,6 +220,13 @@ public class GroceryStore implements Serializable{
 			ioe.printStackTrace();
 			return false;
 		}
+	}
+
+	public static GroceryStore test(){
+		getInstance();  //initializes the grocery store.
+		TesterFile testerFile = new TesterFile();
+		testerFile.startTesting();
+		return GroceryStore.getInstance();
 	}
 	/**
 	 * Retrieves a deserialized version of the grocerystore from disk

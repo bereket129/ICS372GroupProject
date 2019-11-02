@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0058de67-c2a9-42a2-8392-1b90e4ac2eda" name="Default Changelist" comment="Most updated GroceryStore and UserInterface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/GroceryStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/GroceryStore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/GroceryStoreData" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/GroceryStoreData" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/Inventory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilation/production/src/UserInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/Compilation/production/src/UserInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroceryStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroceryStoreData" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStoreData" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Transaction.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GroceryStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="124" column="30" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
+            <state relative-caret-position="630">
+              <caret line="123" column="31" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -59,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3698">
-              <caret line="356" column="29" lean-forward="true" selection-start-line="356" selection-start-column="29" selection-end-line="356" selection-end-column="29" />
+              <caret line="356" column="29" selection-start-line="356" selection-start-column="29" selection-end-line="356" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -68,16 +58,16 @@
         <entry file="file://$PROJECT_DIR$/Inventory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="384">
-              <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Member.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
-              <caret line="28" column="39" lean-forward="true" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -113,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/TransactionList.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="81" lean-forward="true" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
+              <caret line="6" column="81" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -192,7 +182,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572668779178" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572682758163" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -287,7 +277,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
@@ -392,7 +381,7 @@
     <entry file="file://$PROJECT_DIR$/TransactionList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" column="81" lean-forward="true" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
+          <caret line="6" column="81" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -400,13 +389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroceryStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="124" column="30" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -420,7 +402,7 @@
     <entry file="file://$PROJECT_DIR$/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3698">
-          <caret line="356" column="29" lean-forward="true" selection-start-line="356" selection-start-column="29" selection-end-line="356" selection-end-column="29" />
+          <caret line="356" column="29" selection-start-line="356" selection-start-column="29" selection-end-line="356" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -434,7 +416,7 @@
     <entry file="file://$PROJECT_DIR$/Inventory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
-          <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -455,7 +437,14 @@
     <entry file="file://$PROJECT_DIR$/Member.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="28" column="39" lean-forward="true" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroceryStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="123" column="31" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
         </state>
       </provider>
     </entry>
