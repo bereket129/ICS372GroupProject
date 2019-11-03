@@ -58,8 +58,9 @@ public class Inventory implements Serializable {
 	 * Checks whether a product with a given product id exists.
 	 *
 	 * @param productId
-	 *            the id of the product
-	 * @return the product object found
+	 *                 the id of the product
+	 * @return
+	 *        the product object found
 	 *
 	 */
 	public Product findProductById(String productId){
@@ -77,8 +78,9 @@ public class Inventory implements Serializable {
 	 * Removes a product from the inventory
 	 *
 	 * @param productId
-	 *            product id
-	 * @return true iff product could be removed
+	 *                 product id
+	 * @return
+	 *        true if product could be removed
 	 */
 	public boolean removeProduct(String productId) {
 		Product product = findProduct(productId);
@@ -94,7 +96,8 @@ public class Inventory implements Serializable {
 	 *
 	 * @param product
 	 *            the product to be added
-	 * @return true iff the product could be added. Currently always true
+	 * @return
+	 *        true if the product could be added. Currently always true
 	 */
 	public boolean addProduct(Product product) {
 		productList.add(product);
@@ -102,9 +105,10 @@ public class Inventory implements Serializable {
 	}
 
 	/**
-	 * Returns an iterator to all product
+	 * Returns an iterator to all products
 	 *
-	 * @return iterator to the collection
+	 * @return
+	 *       iterator to the collection
 	 */
 	public Iterator getProducts() {
 		return productList.iterator();

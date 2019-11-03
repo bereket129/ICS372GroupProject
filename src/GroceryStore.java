@@ -15,8 +15,7 @@ public class GroceryStore implements Serializable{
 
 	/**
 	 * Private for the singleton pattern creates the MemberList,Inventory
-	 * and TransactionList collection objects and stores a reference to
-	 * the userInterface singleton Object.
+	 * and TransactionList collection objects
 	 *
 	 */
 	private GroceryStore() {
@@ -51,7 +50,7 @@ public class GroceryStore implements Serializable{
 		return memberList.addMember(member);
 	}
 	/**
-	 * Organizes the operations for enrolling a member
+	 * Organizes the operations for removing a member
 	 *
 	 * @param memberId id of the member
 
@@ -66,7 +65,8 @@ public class GroceryStore implements Serializable{
 	 *
 	 * @param memberName name of the member
 
-	 * @return a reference of the Iterator object forumulated.
+	 * @return a reference of the Iterator object that contains members with
+	 * the same name.
 	 */
 	public Iterator retrieveMember(String memberName) {
 		return memberList.findMember(memberName);
@@ -74,23 +74,11 @@ public class GroceryStore implements Serializable{
 	}
 
 	/**
-	 * Organizes the operations for retrieving a member from a member list.
-	 *
-	 * @param memberName name of the member
-
-	 * @return a reference of the Iterator object forumulated.
+	 * Organizes the operations for retrieving a member from a member list using .
+     *
+     * @param memberId id of the member
+	 * @return a reference of the Member object found.
 	 */
-//	public Iterator retrieveMemberById(String memberName) {
-//		return memberList.findMember(memberName);
-//
-//	}
-	/**
-//	 * Organizes the operations for retrieving a member from a member list.
-//	 *
-//	 * @param memberId id of the member
-//
-//	 * @return a reference of the Member object found.
-//	 */
 	public Member retrieveMemberByID(String memberId) {
 		   return memberList.findMemberByID(memberId);
 
